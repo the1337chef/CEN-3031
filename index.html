@@ -9,8 +9,8 @@
       <div class="row">
         <h1>UF Directory App</h1>
       </div>
-      <div class="row" ng-controller="ListingsController">
-        <div class="col-md-6">
+      <div id="wrapper" class="row" ng-controller="ListingsController">
+        <div id="search" class="col-md-6">
           <div class="input-group" id="searchBar">
             <!-- 
 
@@ -74,13 +74,14 @@
              -->
 			 <div>
 				<h3>Code</h3>
-				<div>{{ detailedInfo.code }}</div>
+				<div class="infoIndent">{{ detailedInfo.code }}</div>
 				<h3>Building Name</h3>
-				<div>{{ detailedInfo.name }}</div>
+				<div class="infoIndent">{{ detailedInfo.name }}</div>
 				<h3>Coordinates</h3>
-				<div>Latitude: {{ detailedInfo.coordinates.latitude }}<br>Longitude: {{ detailedInfo.coordinates.longitude }}</div>
+				<div class="infoIndent">Latitude: {{ detailedInfo.coordinates.latitude }}</div>
+				<div class="infoIndent">Longitude: {{ detailedInfo.coordinates.longitude }}</div>
 				<h3>Address</h3>
-				<div>{{ detailedInfo.address }}</div>
+				<div class="infoIndent">{{ detailedInfo.address }}</div>
 			 </div>
           </div>
         </div>
