@@ -1,5 +1,7 @@
-angular.module('listings').controller('ListingsController', ['$scope', '$location', '$stateParams', '$state', 'Listings', 
-  function($scope, $location, $stateParams, $state, Listings){
+angular.module('listings', ['uiGmapgoogle-maps'])
+.controller('ListingsController', ['$scope', '$location', '$stateParams', '$state', 'Listings', 
+  function($scope, $location, $stateParams, $state, Listings)
+  {
     $scope.find = function() {
       /* set loader*/
       $scope.loading = true;
@@ -79,13 +81,51 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         successfully finished, navigate back to the 'listing.list' state using $state.go(). If an error 
         occurs, pass it to $scope.error. 
        */
+		$scope.error = null;
+		if (!isValid)
+		{
+			$scope.$broadcast('show-errors-check-validity', 'articleForm');
+			return false;
+		}
+		
+		/* Create the listing object */
+		var listing =
+		{
+			name: $scope.name, 
+			code: $scope.code, 
+			address: $scope.address
+		};
+
+		/* Save the article using the Listings factory */
+		Listings.update($stateParams.listingId, listing).then(
+			function(response)
+			{
+				//if the object is successfully saved redirect back to the list page
+				$state.go('listings.list', { successMessage: 'Listing succesfully updated!' });
+			},
+			function(error)
+			{
+                //otherwise display the error
+                $scope.error = 'Unable to save listing!\n' + error;
+			});
     };
 
-    $scope.remove = function() {
+    $scope.remove = function()
+	{
       /*
         Implement the remove function. If the removal is successful, navigate back to 'listing.list'. Otherwise, 
         display the error. 
        */
+		
+		Listings.delete($stateParams.listingId).then(
+			function(response)
+			{
+				$state.go('listings.list', {successMessage: 'Listing succesfully removed!'});
+			},
+			function(error)
+			{
+				$scope.error = 'Unable to remove listing!\n' + error;
+			});
     };
 
     /* Bind the success message to the scope if it exists as part of the current state */
@@ -100,6 +140,32 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         longitude: -82.3410518
       }, 
       zoom: 14
-    }
+    };
+	$scope.options =
+	{
+		scrollwheel: true
+	};
+	/*var createMarker = function(i, idKey)
+	{
+		if(ifKey == null)
+		{
+			idKey = "id";
+		}
+		
+		var ret =
+		{
+			latitude: 29.65163059999999,
+			longitude: -82.3410518,
+			title: 'm' + i
+		};
+		ret[idKey] = i;
+		return ret;
+	};
+	var markers = [];
+	for(var i = 0; i < 2; i++)
+	{
+		markers.push(createMarker(i))
+	}
+	$scope.mapMarkers = markers;*/
   }
 ]);
