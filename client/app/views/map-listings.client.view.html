@@ -15,9 +15,18 @@
     </div>
     <div class="jumbotron">
       <img id="loader" ng-show="loading" src="/../../img/484.gif">-->
-	  <div id="map_canvas" ng-controller="ListingsController">
+	  <div id="map_canvas" ng-controller="ListingsController" ng-init="find()">
 		<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
-			<ui-gmap-markers models="mapMarkers" coords="'self'" icon="'icon'">
+			<ui-gmap-markers models="listings" coords="'coordinates'" icon="'icon'" idkey="'_id'">
+				<ui-gmap-windows show="show">
+					<div ng-non-bindable>
+						<p>
+							{{ name }}<br>
+							Code: {{ code }}<br>
+							{{ address }}
+						</p>
+					</div>
+				</ui-gmap-windows>
 			</ui-gmap-markers>
 		</ui-gmap-google-map>
 	  </div>

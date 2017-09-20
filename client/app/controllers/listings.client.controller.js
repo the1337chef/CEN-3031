@@ -1,4 +1,4 @@
-angular.module('listings', ['uiGmapgoogle-maps'])
+angular.module('listings')
 .controller('ListingsController', ['$scope', '$location', '$stateParams', '$state', 'Listings', 
   function($scope, $location, $stateParams, $state, Listings)
   {
@@ -145,27 +145,5 @@ angular.module('listings', ['uiGmapgoogle-maps'])
 	{
 		scrollwheel: true
 	};
-	/*var createMarker = function(i, idKey)
-	{
-		if(ifKey == null)
-		{
-			idKey = "id";
-		}
-		
-		var ret =
-		{
-			latitude: 29.65163059999999,
-			longitude: -82.3410518,
-			title: 'm' + i
-		};
-		ret[idKey] = i;
-		return ret;
-	};
-	var markers = [];
-	for(var i = 0; i < 2; i++)
-	{
-		markers.push(createMarker(i))
-	}
-	$scope.mapMarkers = markers;*/
   }
 ]);
